@@ -1,0 +1,2 @@
+# Android_SocketCAN
+在Android平板上使用SocketCAN
