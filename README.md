@@ -2,7 +2,25 @@
 
 在Android平板上使用SocketCAN
 
-[TOC]
+- [Android_SocketCAN](#android_socketcan)
+  - [概要](#概要)
+  - [adb 连接](#adb-连接)
+  - [adb 常用操作](#adb-常用操作)
+  - [CAN配置脚本](#can配置脚本)
+  - [SocketCAN](#socketcan)
+  - [JNI](#jni)
+  - [JNI与SocketCAN](#jni与socketcan)
+    - [Makefile](#makefile)
+    - [jnican.java](#jnicanjava)
+    - [生成的 jnican..h](#生成的-jnicanh)
+    - [jnican.c](#jnicanc)
+    - [运行](#运行)
+    - [github jni can](#github-jni-can)
+  - [NDK](#ndk)
+  - [Android Studio](#android-studio)
+  - [Android_SocketCAN 工程](#android_socketcan-工程)
+  - [Apktool](#apktool)
+  - [Github Android_SocketCAN](#github-android_socketcan)
 
 ## 概要
 
@@ -22,7 +40,7 @@
 
 插拔USB, 就可以在 Win 的设备管理里面看到
 
-![image-20220629165600631](assets\image-20220629165600631.png)
+![image-20220629165600631](assets/image-20220629165600631.png)
 
 然后就可以在 wsl2 或者 powershell 中操作了
 
@@ -402,7 +420,7 @@ NDK: Native Development Kit, 原生开发套件. 简言之, 在 Android 应用�
 
 > Android Studio 编译原生库的默认构建工具是 [CMake](https://cmake.org/)。由于很多现有项目都使用 ndk-build 构建工具包，因此 Android Studio 也支持 [ndk-build](https://developer.android.google.cn/ndk/guides/ndk-build)。不过，如果您要创建新的原生库，则应使用 CMake。
 
-![灯箱](assets\NDK.png)
+![灯箱](assets/NDK.png)
 
 Android Studio 中可以直接安装 NDK 和 CMake, 下面会有介绍.  
 
@@ -424,29 +442,29 @@ Android Studio 中可以直接安装 NDK 和 CMake, 下面会有介绍.
 
 以下面这个版本为例
 
-![image-20220701155410284](assets\image-20220701155410284.png)
+![image-20220701155410284](assets/image-20220701155410284.png)
 
 File -> New -> New Project, 选择 Phone and Tablet -> Empty Activity
 
-![image-20220701155548400](assets\image-20220701155548400.png)
+![image-20220701155548400](assets/image-20220701155548400.png)
 
 语言选择Java
 
-![image-20220701155736473](assets\image-20220701155736473.png)
+![image-20220701155736473](assets/image-20220701155736473.png)
 
 点击 SDK Manager 安装 NDK 和 CMake
 
-![image-20220701164700077](assets\image-20220701164700077.png)
+![image-20220701164700077](assets/image-20220701164700077.png)
 
 app右键选择 `Add C++ to Module`
 
-![image-20220701164218653](assets\image-20220701164218653.png)
+![image-20220701164218653](assets/image-20220701164218653.png)
 
-![image-20220701164306938](assets\image-20220701164306938.png)
+![image-20220701164306938](assets/image-20220701164306938.png)
 
 添加一个新的 java class: android_socketcan
 
-![image-20220701165131808](assets\image-20220701165131808.png)
+![image-20220701165131808](assets/image-20220701165131808.png)
 
 把接口填进去:
 
@@ -475,11 +493,11 @@ public class android_socketcan {
 
 鼠标悬停红色文字, 弹窗点 `Creat JNI function for `
 
-![image-20220701165439738](assets\image-20220701165439738.png)
+![image-20220701165439738](assets/image-20220701165439738.png)
 
 依次点击这4个接口, 就可以在cpp中自动生成接口代码, `jni.h` 也包含好了
 
-![image-20220701165727696](assets\image-20220701165727696.png)
+![image-20220701165727696](assets/image-20220701165727696.png)
 
 接着把 SocketCAN的C代码填进去, 整个文件如下
 
@@ -578,7 +596,7 @@ Java_com_example_android_1socketcan_android_1socketcan_socketcanRead(JNIEnv *env
 
 给默认的TextView添加一个id, 还有 maxLines属性设为10
 
-![image-20220701171055670](assets\image-20220701171055670.png)
+![image-20220701171055670](assets/image-20220701171055670.png)
 
 在MainActivity里面用can0测试一下
 
@@ -687,9 +705,9 @@ public class MainActivity extends AppCompatActivity {
 - 平板每秒发出0x123的标准帧, 第0字节递增
 - 平板接收CAN分析仪发出的标准帧和扩展帧, 显示在屏幕正中间
 
-![image-20220701184200314](assets\image-20220701184200314.png)
+![image-20220701184200314](assets/image-20220701184200314.png)
 
-![image-20220701184356893](assets\image-20220701184356893.png)
+![image-20220701184356893](assets/image-20220701184356893.png)
 
 ## Apktool
 
@@ -706,7 +724,7 @@ public class MainActivity extends AppCompatActivity {
 
 发现把所有平台的 .so 打包进去了
 
-![image-20220701190131721](assets\image-20220701190131721.png)
+![image-20220701190131721](assets/image-20220701190131721.png)
 
 ## Github [Android_SocketCAN](https://github.com/weifengdq/Android_SocketCAN)
 
